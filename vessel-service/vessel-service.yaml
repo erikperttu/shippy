@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f .\docker-compose.yml
+    kompose.version: 1.5.0 (999278f)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: vessel-service
+  name: vessel-service
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: vessel-service
+    spec:
+      containers:
+      - env:
+        - name: MICRO_ADDRESS
+          value: :50051
+        - name: MICRO_REGISTRY
+          value: mdns
+        image: vessel-service
+        name: vessel-service
+        #Use local image
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 50051
+        resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe
+      convert -f .\docker-compose.yml
+    kompose.version: 1.5.0 (999278f)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: vessel-service
+  name: vessel-service
+spec:
+  ports:
+  - name: "50052"
+    port: 50052
+    targetPort: 50051
+  selector:
+    io.kompose.service: vessel-service
+status:
+  loadBalancer: {}
