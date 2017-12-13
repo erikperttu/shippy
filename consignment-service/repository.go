@@ -21,7 +21,7 @@ type ConsignmentRepository struct {
 }
 
 // Create new consignment
-func (repo *ConsignmentRepository) Create(consignment pb.Consignment) error {
+func (repo *ConsignmentRepository) Create(consignment *pb.Consignment) error {
 	return repo.collection().Insert(consignment)
 }
 
