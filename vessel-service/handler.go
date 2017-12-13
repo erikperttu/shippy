@@ -3,7 +3,15 @@ package main
 import (
 	pb "github.com/erikperttu/shippy/vessel-service/proto/vessel"
 	"golang.org/x/net/context"
+	"gopkg.in/mgo.v2"
 )
+
+
+// Our gRPC service handler
+type service struct {
+	session *mgo.Session
+}
+
 
 func (s *service) GetRepo() Repository {
 	return &VesselRepository{s.session.Clone()}

@@ -26,12 +26,7 @@ func (repo *VesselRepository) FindAvailable(spec *pb.Specification) (*pb.Vessel,
 			return vessel, nil
 		}
 	}
-	return nil, errors.New("No vessel found by that spec")
-}
-
-// Our grpc service handler
-type service struct {
-	repo Repository
+	return nil, errors.New("no vessel found by that spec")
 }
 
 func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res *pb.Response) error {
