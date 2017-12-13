@@ -1,11 +1,11 @@
 package main
 
 import (
-	"golang.org/x/net/context"
 	pb "github.com/erikperttu/shippy/vessel-service/proto/vessel"
+	"golang.org/x/net/context"
 )
 
-func (s *service) GetRepo() Repository{
+func (s *service) GetRepo() Repository {
 	return &VesselRepository{s.session.Clone()}
 }
 
