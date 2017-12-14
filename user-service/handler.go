@@ -19,3 +19,24 @@ func (srv *service) Get(ctx context.Context, req *pb.User, res *pb.Response) err
 	res.User = user
 	return nil
 }
+
+func (srv *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
+	_, err := srv.repo.GetByEmailAndPassword(req)
+	if err != nil {
+		return err
+	}
+	res.Token = "testingabc"
+	return nil
+}
+
+func (srv *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
+	if err := srv.repo.Create(req); err != nil {
+		return err
+	}
+	res.User = req
+	return nil
+}
+
+func (srv *service) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Token) error {
+	return nil
+}
