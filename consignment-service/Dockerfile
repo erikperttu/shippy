@@ -5,7 +5,7 @@ WORKDIR /go/src/github.com/erikperttu/shippy/consignment-service
 COPY . .
 
 RUN go get -v -u github.com/golang/dep/cmd/dep
-RUN dep init && dep ensure -v
+RUN dep init && dep ensure
 RUN CGO_ENABLED=0 GOOS=linux go build  -o consignment-service -a -installsuffix cgo main.go repository.go handler.go datastore.go
 
 FROM alpine:latest
