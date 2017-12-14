@@ -1,20 +1,6 @@
 #Change to version 3 to use kompose 1.5
 version: '3.1'
 services:
-  consignment-cli:
-    build:
-      context: ./consignment-cli
-    environment:
-      MICRO_REGISTRY: "mdns"
-  consignment-service:
-    build:
-      context: ./consignment-service
-    ports:
-      - 50051:50051
-    environment:
-      MICRO_ADDRESS: ":50051"
-      MICRO_REGISTRY: "mdns"
-      DB_HOST: "datastore:27017"
   vessel-service:
     build:
       context: ./vessel-service
@@ -45,3 +31,22 @@ services:
     image: postgres
     ports:
       - 5432:5432
+  consignment-cli:
+      build:
+        context: ./consignment-cli
+      environment:
+        MICRO_REGISTRY: "mdns"
+    consignment-service:
+      build:
+        context: ./consignment-service
+      ports:
+        - 50051:50051
+      environment:
+        MICRO_ADDRESS: ":50051"
+        MICRO_REGISTRY: "mdns"
+        DB_HOST: "datastore:27017"
+  user-cli:
+    build:
+      context: ./user-cli
+    environment:
+      MICRO_REGISTRY: "mdns"
